@@ -1,17 +1,29 @@
-import { useState } from 'react'
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 
-import { Button } from 'react-bootstrap';
+import { Button, Form, Navbar } from 'react-bootstrap';
 import { WordGrid } from '../src/WordGrid';
+import { FilterForm } from './FilterForm';
+import { MyNavbar } from './MyNavbar';
 
-function App() {
+function App() { 
+
+    function handleSubmit(event) {
+    event.preventDefault();
+    alert("submitted :D");
+  }
+
   return (
-    <>
-    <h2>Word Grid</h2>
-    <WordGrid/>
-    <Button variant="primary">Filter</Button>
-    </>
+    <div>
+      <MyNavbar />
+      <Form onSubmit={handleSubmit}>
+        <WordGrid/>
+        <div style={{display:"flex", justifyContent: "center", marginTop: "10px"}}>
+          <Button variant="primary" type="submit">Filter</Button>
+        </div>
+        </Form>
+      {/*section (hidden until state show = true): <PossibleAnswers/>*/}
+    </div>
   )
 }
 
