@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { Button, Container, Modal, Nav, Navbar } from "react-bootstrap";
 import { Word } from "./Word";
+import answersFile from '../past-wordle-answers.txt?raw';
 
 export function MyNavbar() {
     
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    function handleClose() {
+        setShow(false);
+    }
+    function handleShow() {
+        setShow(true);
+    }
 
     return(
         <>
@@ -26,15 +31,15 @@ export function MyNavbar() {
             </Navbar.Collapse>
         </Container>
         </Navbar>
-
+        
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
             <Modal.Title>Past Wordle Answers</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Word content="ZEBRA" />
-                <Word content="QUICK" />
-                <Word content="LION" />
+                 {answersFile.split(" ").slice(0, answersFile.length).map((word) => (
+                                <Word content={word} />
+                              ))}
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
