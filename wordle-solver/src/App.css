@@ -1,3 +1,16 @@
+.word-list-item{
+    display: inline-block;
+    background-color: #ebe7f460;
+    padding: 7px;
+    margin-right: 5px;
+    margin-left: 5px;
+    border-radius: 7px;
+    font-family: monospace;
+    text-transform: uppercase;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
 /* .counter {
   font-size: 16px;
   padding: 5px 10px;

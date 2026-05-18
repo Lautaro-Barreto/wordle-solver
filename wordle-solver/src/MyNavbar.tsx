@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Container, Modal, Nav, Navbar } from "react-bootstrap";
+import { Word } from "./Word";
 
 export function MyNavbar() {
     
@@ -30,7 +31,11 @@ export function MyNavbar() {
             <Modal.Header closeButton>
             <Modal.Title>Past Wordle Answers</Modal.Title>
             </Modal.Header>
-            <Modal.Body>*Insert words here*</Modal.Body>
+            <Modal.Body>
+                <Word content="ZEBRA" />
+                <Word content="QUICK" />
+                <Word content="LION" />
+            </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
                 Close

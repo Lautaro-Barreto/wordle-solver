@@ -1,13 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
+import './App.css';
 
-import { Button, Form, Navbar } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { WordGrid } from '../src/WordGrid';
-import { FilterForm } from './FilterForm';
 import { MyNavbar } from './MyNavbar';
+import { WordList } from './WordList';
+import { useState } from 'react';
 
 function App() { 
 
+    const [formData, setFormData] = useState({});
+    
     function handleSubmit(event) {
     event.preventDefault();
     alert("submitted :D");
@@ -22,7 +25,8 @@ function App() {
           <Button variant="primary" type="submit">Filter</Button>
         </div>
         </Form>
-      {/*section (hidden until state show = true): <PossibleAnswers/>*/}
+        <WordList words={["ZEBRA", "QUICK", "LION"]} />
+      {/*section (hidden until state show = true): <WordList />*/}
     </div>
   )
 }
