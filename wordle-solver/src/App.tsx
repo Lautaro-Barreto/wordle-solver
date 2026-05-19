@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import { Button, Form } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { WordGrid } from '../src/WordGrid';
 import { MyNavbar } from './MyNavbar';
 import { WordList } from './WordList';
@@ -9,24 +9,27 @@ import { useState } from 'react';
 
 function App() { 
 
-    const [formData, setFormData] = useState({});
-    
-    function handleSubmit(event) {
-    event.preventDefault();
-    alert("submitted :D");
-  }
+  const [formData, setFormData] = useState({});
 
   return (
     <div>
       <MyNavbar />
-      <Form onSubmit={handleSubmit}>
-        <WordGrid/>
-        <div style={{display:"flex", justifyContent: "center", marginTop: "10px"}}>
-          <Button variant="primary" type="submit">Filter</Button>
-        </div>
-        </Form>
-        <WordList words={["ZEBRA", "QUICK", "LION"]} />
-      {/*section (hidden until state show = true): <WordList />*/}
+      <Container>
+        <Row>
+          <h1 style={{textAlign: "center", marginTop: "20px"}}>Wordle Solver</h1>
+          <p style={{textAlign: "center"}}>Enter your guesses and the colors of the letters to filter possible answers.</p>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <h2 style={{textAlign: "center", marginTop: "20px"}}>Input your guesses</h2>
+            <WordGrid />
+          </Col>
+          <Col md={6}>
+            <h2 style={{textAlign: "center", marginTop: "20px"}}>Possible Answers</h2>
+            <WordList words={["ZEBRA", "QUICK", "LION"]} />
+          </Col>
+        </Row>
+      </ Container>
     </div>
   )
 }

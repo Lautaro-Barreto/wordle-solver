@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 function AddRemoveRowsButton(props: {action, displayText: string}) {
   return(
@@ -27,14 +27,20 @@ export function WordGrid() {
       setRows(rows - 1);
     }
 
+    function handleSubmit(event) {
+    event.preventDefault();
+    alert("submitted :D");
+    }
+
     return(
     <section id="grid">  
+      <Form onSubmit={handleSubmit}>
         {[...Array(rows)].map(() => {
           return(
-            <Container>
-            <Row className="gx-1 gy-0 justify-content-md-center">
+            <Container style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
+            <Row className="gx-1 gy-0">
               {[1,2,3,4,5].map((num) => (
-                <Col xs={2} md={2} key={num} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <Col xs={2} md={2} key={num} >
                   <input className="form-control text-center bg-secondary text-white" maxLength={1} style={{height:'75%', aspectRatio: '1/1', borderRadius: '15px'}}/>
                 </Col>
               ))}
@@ -45,7 +51,11 @@ export function WordGrid() {
         <div className="gx-5" style={{display: "flex", justifyContent: "center", marginTop: "10px", gap: "20px"}}>
             <AddRemoveRowsButton action={handleClickAdd} displayText="Add Row" />
             <AddRemoveRowsButton action={handleClickRemove} displayText="Remove Row" />
-        </div>       
+        </div>  
+        <div style={{display:"flex", justifyContent: "center", marginTop: "10px"}}>
+          <Button variant="primary" type="submit">Filter</Button>
+        </div>
+      </Form>     
     </section>
     )
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Container, Modal, Nav, Navbar } from "react-bootstrap";
-import { Word } from "./Word";
 import answersFile from '../past-wordle-answers.txt?raw';
+import { WordList } from "./WordList";
 
 export function MyNavbar() {
     
@@ -37,9 +37,7 @@ export function MyNavbar() {
             <Modal.Title>Past Wordle Answers</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                 {answersFile.split(" ").slice(0, answersFile.length).map((word) => (
-                                <Word content={word} />
-                              ))}
+                <WordList words={answersFile.split(" ")}/ >
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
