@@ -53,9 +53,14 @@ export function WordGrid({ data, setData }) {
 
     function handleSubmit(e) {
       e.preventDefault();
+      const datos = new FormData(e.target);
+      const data = {};
+      for (const [key, value] of datos.entries()) {
+        data[key] = value;
+      }
       alert("data: " + JSON.stringify(data));
     }
-
+    
     return(
     <section id="grid">  
       <form onSubmit={handleSubmit}>
@@ -64,9 +69,9 @@ export function WordGrid({ data, setData }) {
         <div className="correct-inputs-container">
           {[...Array(correctRows)].map((_, rowIndex) => {
             return(
-              <div className={`input-${rowIndex + 1}-row`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
+              <div className={`correct-input-${rowIndex + 1}-row`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
                 {[1,2,3,4,5].map((num) => (
-                <input name={`word${num}`} className="form-control text-center bg-success text-white input-letter" maxLength={1} style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
+                <input name={`correct-letter-${num}-input-${rowIndex + 1}`} className="form-control text-center bg-success text-white input-letter" maxLength={1} style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
                 ))}
                 </div>
             )
@@ -78,12 +83,12 @@ export function WordGrid({ data, setData }) {
         </div>  
         
         <h2 style={{textAlign: "center", marginTop: "20px"}}>Words in incorrect positions</h2>
-        <div className="correct-inputs-container">
+        <div className="incorrect-inputs-container">
           {[...Array(incorrectRows)].map((_, rowIndex) => {
             return(
-              <div className={`input-${rowIndex + 1}-row`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
+              <div className={`incorrect-input-${rowIndex + 1}-row`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
                 {[1,2,3,4,5].map((num) => (
-                <input name={`word${num}`} className="form-control text-center bg-warning text-white input-letter" maxLength={1} style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
+                <input name={`incorrect-letter-${num}-input-${rowIndex + 1}`} className="form-control text-center bg-warning text-white input-letter" maxLength={1} style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
                 ))}
                 </div>
             )
@@ -95,17 +100,9 @@ export function WordGrid({ data, setData }) {
         </div>
 
         <h2 style={{textAlign: "center", marginTop: "20px"}}>Letters not in the word</h2>
-        <div className="incorrect-inputs-container">
-          {[...Array(missingRows)].map((_, rowIndex) => {
-            return(
-              <div className={`input-${rowIndex + 1}-row`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
-                {[1,2,3,4,5].map((num) => (
-                <input name={`word${num}`} className="form-control text-center bg-secondary text-white input-letter" maxLength={1} style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
-                ))}
-                </div>
-            )
-          })}
-          </div>
+        <div className="missing-inputs-container">
+          <input name="missing-letters-input" className="form-control text-center bg-secondary text-white" style={{borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
+        </div>
         <div className="gx-5" style={{display: "flex", justifyContent: "center", marginTop: "10px", gap: "5px"}}>
             <AddRemoveRowsButton action={handleClickAdd3} displayText="Add Row" />
             <AddRemoveRowsButton action={handleClickRemove3} displayText="Remove Row" />

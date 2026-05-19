@@ -4,8 +4,8 @@ import './App.css';
 import { Col, Container, Row } from 'react-bootstrap';
 import { WordGrid } from '../src/WordGrid';
 import { MyNavbar } from './MyNavbar';
-import { WordList } from './WordList';
 import { useState } from 'react';
+import { PossibleAnswers } from './PossibleAnswers';
 
 function App() { 
 
@@ -25,7 +25,7 @@ function App() {
           </Col>
           <Col md={6} style={{borderLeft: "1px solid rgb(162, 196, 231)"}}>
             <h2 style={{textAlign: "center", marginTop: "20px"}}>Possible Answers</h2>
-            <WordList words={["ZEBRA", "QUICK", "LION"]} />
+            <PossibleAnswers />
           </Col>
         </Row>
       </ Container>
