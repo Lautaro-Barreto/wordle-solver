@@ -15,27 +15,111 @@ function ChangeInputColor() {
   )
 }
 
-export function WordGrid() {
+export function WordGrid({ data, setData }) {
 
-    const [rows, setRows] = useState(1);
+    const [correctRows, setCorrectRows] = useState(1);
+    const [missingRows, setMissingRows] = useState(1);
+    const [incorrectRows, setIncorrectRows] = useState(1);
 
     function handleClickAdd() {
-      setRows(rows + 1);
+      if (correctRows == 6) return;
+      setCorrectRows(correctRows + 1);
     }
     
     function handleClickRemove() {
-      setRows(rows - 1);
+      if (correctRows == 1) return;
+      setCorrectRows(correctRows - 1);
     }
 
-    function handleSubmit(event) {
-    event.preventDefault();
-    alert("submitted :D");
+    function handleClickAdd2() {
+      if (incorrectRows == 6) return;
+      setIncorrectRows(incorrectRows + 1);
+    }
+    
+    function handleClickRemove2() {
+      if (incorrectRows == 1) return;
+      setIncorrectRows(incorrectRows - 1);
+    }
+
+    function handleClickAdd3() {
+      if (missingRows == 6) return;
+      setMissingRows(missingRows + 1);
+    }
+    
+    function handleClickRemove3() {
+      if (missingRows == 1) return;
+      setMissingRows(missingRows - 1);
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert("data: " + JSON.stringify(data));
     }
 
     return(
     <section id="grid">  
-      <Form onSubmit={handleSubmit}>
-        {[...Array(rows)].map(() => {
+      <form onSubmit={handleSubmit}>
+
+        <h2 style={{textAlign: "center", marginTop: "20px"}}>Words in correct positions</h2>
+        <div className="correct-inputs-container">
+          {[...Array(correctRows)].map((_, rowIndex) => {
+            return(
+              <div className={`input-${rowIndex + 1}-row`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
+                {[1,2,3,4,5].map((num) => (
+                <input name={`word${num}`} className="form-control text-center bg-success text-white input-letter" maxLength={1} style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
+                ))}
+                </div>
+            )
+          })}
+          </div>
+        <div className="gx-5" style={{display: "flex", justifyContent: "center", marginTop: "10px", gap: "5px"}}>
+            <AddRemoveRowsButton action={handleClickAdd} displayText="Add Row" />
+            <AddRemoveRowsButton action={handleClickRemove} displayText="Remove Row" />
+        </div>  
+        
+        <h2 style={{textAlign: "center", marginTop: "20px"}}>Words in incorrect positions</h2>
+        <div className="correct-inputs-container">
+          {[...Array(incorrectRows)].map((_, rowIndex) => {
+            return(
+              <div className={`input-${rowIndex + 1}-row`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
+                {[1,2,3,4,5].map((num) => (
+                <input name={`word${num}`} className="form-control text-center bg-warning text-white input-letter" maxLength={1} style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
+                ))}
+                </div>
+            )
+          })}
+          </div>
+        <div className="gx-5" style={{display: "flex", justifyContent: "center", marginTop: "10px", gap: "5px"}}>
+            <AddRemoveRowsButton action={handleClickAdd2} displayText="Add Row" />
+            <AddRemoveRowsButton action={handleClickRemove2} displayText="Remove Row" />
+        </div>
+
+        <h2 style={{textAlign: "center", marginTop: "20px"}}>Letters not in the word</h2>
+        <div className="incorrect-inputs-container">
+          {[...Array(missingRows)].map((_, rowIndex) => {
+            return(
+              <div className={`input-${rowIndex + 1}-row`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
+                {[1,2,3,4,5].map((num) => (
+                <input name={`word${num}`} className="form-control text-center bg-secondary text-white input-letter" maxLength={1} style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
+                ))}
+                </div>
+            )
+          })}
+          </div>
+        <div className="gx-5" style={{display: "flex", justifyContent: "center", marginTop: "10px", gap: "5px"}}>
+            <AddRemoveRowsButton action={handleClickAdd3} displayText="Add Row" />
+            <AddRemoveRowsButton action={handleClickRemove3} displayText="Remove Row" />
+        </div> 
+
+        <div style={{display:"flex", justifyContent: "center", marginTop: "10px"}}>
+          <Button variant="primary" type="submit">Filter</Button>
+        </div> 
+
+      </form>
+        
+
+          
+{/*         {[...Array(rows)].map(() => {
           return(
             <Container style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
             <Row className="gx-1 gy-0">
@@ -47,15 +131,8 @@ export function WordGrid() {
             </Row>
           </Container>
           )
-        })}
-        <div className="gx-5" style={{display: "flex", justifyContent: "center", marginTop: "10px", gap: "20px"}}>
-            <AddRemoveRowsButton action={handleClickAdd} displayText="Add Row" />
-            <AddRemoveRowsButton action={handleClickRemove} displayText="Remove Row" />
-        </div>  
-        <div style={{display:"flex", justifyContent: "center", marginTop: "10px"}}>
-          <Button variant="primary" type="submit">Filter</Button>
-        </div>
-      </Form>     
+        })} */}
+
     </section>
     )
 }

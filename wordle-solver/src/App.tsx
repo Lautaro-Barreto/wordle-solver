@@ -17,14 +17,13 @@ function App() {
       <Container>
         <Row>
           <h1 style={{textAlign: "center", marginTop: "20px"}}>Wordle Solver</h1>
-          <p style={{textAlign: "center"}}>Enter your guesses and the colors of the letters to filter possible answers.</p>
+          <p style={{textAlign: "center"}}>* Insert placeholder text *</p>
         </Row>
         <Row>
           <Col md={6}>
-            <h2 style={{textAlign: "center", marginTop: "20px"}}>Input your guesses</h2>
-            <WordGrid />
+            <WordGrid data={formData} setData={setFormData} />
           </Col>
-          <Col md={6}>
+          <Col md={6} style={{borderLeft: "1px solid rgb(162, 196, 231)"}}>
             <h2 style={{textAlign: "center", marginTop: "20px"}}>Possible Answers</h2>
             <WordList words={["ZEBRA", "QUICK", "LION"]} />
           </Col>
