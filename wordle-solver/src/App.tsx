@@ -25,8 +25,13 @@ function App() {
           </Col>
           <Col md={6} style={{borderLeft: "1px solid rgb(162, 196, 231)"}}>
             <h2 style={{textAlign: "center", marginTop: "20px"}}>Possible Answers</h2>
-            <PossibleAnswers />
+            <PossibleAnswers data={formData} /> 
           </Col>
+        </Row>
+        <Row>
+          <footer>
+            <p style={{textAlign: "center", marginTop: "20px"}}>© 2023 Wordle Solver. All rights reserved.</p>
+          </footer>
         </Row>
       </ Container>
     </div>

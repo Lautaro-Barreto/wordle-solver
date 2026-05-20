@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useState, type MouseEventHandler } from "react";
+import { Button, FormCheck } from "react-bootstrap";
 
 function AddRemoveRowsButton(props: {action, displayText: string}) {
   return(
@@ -9,69 +9,55 @@ function AddRemoveRowsButton(props: {action, displayText: string}) {
   )
 }
 
-function ChangeInputColor() {
-  return(
-    <div className="form-control text-center bg-secondary text-white"></div>
-  )
-}
+export function WordGrid({ data, setData}) {
 
-export function WordGrid({ data, setData }) {
+    const [misplacedRows, setMisplacedRows] = useState(1);
 
-    const [correctRows, setCorrectRows] = useState(1);
-    const [missingRows, setMissingRows] = useState(1);
-    const [incorrectRows, setIncorrectRows] = useState(1);
+    function flushForm() {
+      
+    }
 
     function handleClickAdd() {
-      if (correctRows == 6) return;
-      setCorrectRows(correctRows + 1);
+      if (misplacedRows == 6) return;
+      setMisplacedRows(misplacedRows + 1);
     }
     
     function handleClickRemove() {
-      if (correctRows == 1) return;
-      setCorrectRows(correctRows - 1);
-    }
-
-    function handleClickAdd2() {
-      if (incorrectRows == 6) return;
-      setIncorrectRows(incorrectRows + 1);
-    }
-    
-    function handleClickRemove2() {
-      if (incorrectRows == 1) return;
-      setIncorrectRows(incorrectRows - 1);
-    }
-
-    function handleClickAdd3() {
-      if (missingRows == 6) return;
-      setMissingRows(missingRows + 1);
-    }
-    
-    function handleClickRemove3() {
-      if (missingRows == 1) return;
-      setMissingRows(missingRows - 1);
+      if (misplacedRows == 1) return;
+      setMisplacedRows(misplacedRows - 1);
     }
 
     function handleSubmit(e) {
       e.preventDefault();
-      const datos = new FormData(e.target);
-      const data = {};
-      for (const [key, value] of datos.entries()) {
-        data[key] = value;
+      const formData = new FormData(e.target);
+      const datos = {};
+      for (const [key, value] of formData.entries()) {
+        if (value.valueOf() !== "") datos[key] = value;
       }
-      alert("data: " + JSON.stringify(data));
+      setData(datos);
     }
     
     return(
     <section id="grid">  
       <form onSubmit={handleSubmit}>
 
-        <h2 style={{textAlign: "center", marginTop: "20px"}}>Words in correct positions</h2>
-        <div className="correct-inputs-container">
-          {[...Array(correctRows)].map((_, rowIndex) => {
-            return(
-              <div className={`correct-input-${rowIndex + 1}-row`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
+        <h2 style={{textAlign: "center", marginTop: "20px"}}>Letters in correct positions</h2>
+        <div className="correct-inputs-container" style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
                 {[1,2,3,4,5].map((num) => (
-                <input name={`correct-letter-${num}-input-${rowIndex + 1}`} className="form-control text-center bg-success text-white input-letter" maxLength={1} style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
+                <input name={`correct-letter-${num}`} className="form-control text-center bg-success text-white input-letter" maxLength={1} autoComplete="off" style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
+                ))}
+          </div>
+        <div className="gx-5" style={{display: "flex", justifyContent: "center", marginTop: "10px", gap: "5px"}}>
+          <Button type="button" className="btn btn-secondary" onClick={flushForm}>Reset all inputs</Button>
+        </div>  
+        
+        <h2 style={{textAlign: "center", marginTop: "20px"}}>Misplaced Letters</h2>
+        <div className="misplaced-inputs-container">
+          {[...Array(misplacedRows)].map((_, rowIndex) => {
+            return(
+              <div className={`misplaced-input-${rowIndex + 1}-row`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
+                {[1,2,3,4,5].map((num) => (
+                <input name={`misplaced-letter-${num}-input-${rowIndex + 1}`} className="form-control text-center bg-warning text-white input-letter" maxLength={1} autoComplete="off" style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
                 ))}
                 </div>
             )
@@ -80,56 +66,19 @@ export function WordGrid({ data, setData }) {
         <div className="gx-5" style={{display: "flex", justifyContent: "center", marginTop: "10px", gap: "5px"}}>
             <AddRemoveRowsButton action={handleClickAdd} displayText="Add Row" />
             <AddRemoveRowsButton action={handleClickRemove} displayText="Remove Row" />
-        </div>  
-        
-        <h2 style={{textAlign: "center", marginTop: "20px"}}>Words in incorrect positions</h2>
-        <div className="incorrect-inputs-container">
-          {[...Array(incorrectRows)].map((_, rowIndex) => {
-            return(
-              <div className={`incorrect-input-${rowIndex + 1}-row`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
-                {[1,2,3,4,5].map((num) => (
-                <input name={`incorrect-letter-${num}-input-${rowIndex + 1}`} className="form-control text-center bg-warning text-white input-letter" maxLength={1} style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
-                ))}
-                </div>
-            )
-          })}
-          </div>
-        <div className="gx-5" style={{display: "flex", justifyContent: "center", marginTop: "10px", gap: "5px"}}>
-            <AddRemoveRowsButton action={handleClickAdd2} displayText="Add Row" />
-            <AddRemoveRowsButton action={handleClickRemove2} displayText="Remove Row" />
         </div>
 
         <h2 style={{textAlign: "center", marginTop: "20px"}}>Letters not in the word</h2>
         <div className="missing-inputs-container">
-          <input name="missing-letters-input" className="form-control text-center bg-secondary text-white" style={{borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
+          <input name="missing-letters-input" className="form-control text-center bg-secondary text-white" maxLength={26} autoComplete="off" style={{borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
         </div>
-        <div className="gx-5" style={{display: "flex", justifyContent: "center", marginTop: "10px", gap: "5px"}}>
-            <AddRemoveRowsButton action={handleClickAdd3} displayText="Add Row" />
-            <AddRemoveRowsButton action={handleClickRemove3} displayText="Remove Row" />
-        </div> 
 
-        <div style={{display:"flex", justifyContent: "center", marginTop: "10px"}}>
+        <div style={{display:"flex", justifyContent: "center", marginTop: "10px", gap: "20px", alignItems: "center"}}>
+          <FormCheck name="exclude-previous" label="Exclude previous answers"/>
           <Button variant="primary" type="submit">Filter</Button>
         </div> 
 
       </form>
-        
-
-          
-{/*         {[...Array(rows)].map(() => {
-          return(
-            <Container style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
-            <Row className="gx-1 gy-0">
-              {[1,2,3,4,5].map((num) => (
-                <Col xs={2} md={2} key={num} >
-                  <input className="form-control text-center bg-secondary text-white" maxLength={1} style={{height:'75%', aspectRatio: '1/1', borderRadius: '15px'}}/>
-                </Col>
-              ))}
-            </Row>
-          </Container>
-          )
-        })} */}
-
     </section>
     )
 }
