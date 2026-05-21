@@ -1,40 +1,30 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
-import { Col, Container, Row } from 'react-bootstrap';
-import { WordGrid } from '../src/WordGrid';
 import { MyNavbar } from './MyNavbar';
-import { useState } from 'react';
-import { PossibleAnswers } from './PossibleAnswers';
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import { Solver } from './Solver';
+import Row from 'react-bootstrap/esm/Row';
+import Container from 'react-bootstrap/esm/Container';
+import { PreviousAnswers } from './PreviousAnswers';
 
 function App() { 
 
-  const [formData, setFormData] = useState({});
-
   return (
-    <div>
+    <BrowserRouter>
       <MyNavbar />
+      <Routes>
+        <Route path="/" element={<Solver />} />
+        <Route path="/past-answers" element={<PreviousAnswers />} />
+      </Routes>
       <Container>
-        <Row>
-          <h1 style={{textAlign: "center", marginTop: "20px"}}>Wordle Solver</h1>
-          <p style={{textAlign: "center"}}>* Insert placeholder text *</p>
-        </Row>
-        <Row>
-          <Col md={6}>
-            <WordGrid data={formData} setData={setFormData} />
-          </Col>
-          <Col md={6} style={{borderLeft: "1px solid rgb(162, 196, 231)"}}>
-            <h2 style={{textAlign: "center", marginTop: "20px"}}>Possible Answers</h2>
-            <PossibleAnswers data={formData} /> 
-          </Col>
-        </Row>
         <Row>
           <footer>
             <p style={{textAlign: "center", marginTop: "20px"}}>© 2023 Wordle Solver. All rights reserved.</p>
           </footer>
         </Row>
-      </ Container>
-    </div>
+      </Container>
+
+    </BrowserRouter>
   )
 }
 

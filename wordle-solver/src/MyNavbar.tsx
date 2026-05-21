@@ -1,50 +1,26 @@
-import { useState } from "react";
-import { Button, Container, Modal, Nav, Navbar } from "react-bootstrap";
-import answersFile from '../past-wordle-answers.txt?raw';
-import { WordList } from "./WordList";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 export function MyNavbar() {
     
-    const [show, setShow] = useState(false);
-
-    function handleClose() {
-        setShow(false);
-    }
-    function handleShow() {
-        setShow(true);
-    }
-
     return(
         <>
         <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
-            <Navbar.Brand href="https://www.nytimes.com/games/wordle/index.html">Wordle Solver</Navbar.Brand>
+            <Navbar.Brand>Wordle Solver</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-                <Nav.Link onClick={handleShow}>
-                    Past answers
+                <Nav.Link>
+                  <NavLink to="/">Solver</NavLink>  
                 </Nav.Link>
-                <Nav.Link>Wordle Dictionary</Nav.Link>
-                <Nav.Link>Five letter words dictionary</Nav.Link>
+                <Nav.Link>
+                <NavLink to="/past-answers">Previous Answers</NavLink>
+                </Nav.Link>
             </Nav>
             </Navbar.Collapse>
         </Container>
         </Navbar>
-        
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-            <Modal.Title>Past Wordle Answers</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <WordList words={answersFile.split(" ")}/ >
-            </Modal.Body>
-            <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-                Close
-            </Button>
-            </Modal.Footer>
-      </Modal>
       </>
     )
 }
