@@ -55,9 +55,9 @@ export function WordGrid({ data, setData}) {
         <div className="misplaced-inputs-container">
           {[...Array(misplacedRows)].map((_, rowIndex) => {
             return(
-              <div className={`misplaced-input-${rowIndex + 1}-row`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
+              <div className={`misplaced-input-row-${rowIndex + 1}`} style={{display: 'flex', alignItems: 'left', justifyContent: 'left'}}>
                 {[1,2,3,4,5].map((num) => (
-                <input name={`misplaced-letter-${num}-input-${rowIndex + 1}`} className="form-control text-center bg-warning text-white input-letter" maxLength={1} autoComplete="off" style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
+                <input name={`misplaced-letter-${num}-row-${rowIndex + 1}`} className="form-control text-center bg-warning text-white input-letter" maxLength={1} autoComplete="off" style={{aspectRatio: '1/1', borderRadius: '15px', fontSize: '3rem', border: '1.5px solid #ccc', margin: '1.5px'}}/>
                 ))}
                 </div>
             )

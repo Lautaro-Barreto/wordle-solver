@@ -18,7 +18,6 @@ export function Solver() {
             <WordGrid data={formData} setData={setFormData} />
           </Col>
           <Col md={6} style={{borderLeft: "1px solid rgb(162, 196, 231)"}}>
-            <h2 style={{textAlign: "center", marginTop: "20px"}}>Possible Answers</h2>
             <PossibleAnswers data={formData} /> 
           </Col>
         </Row>

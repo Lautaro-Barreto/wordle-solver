@@ -6,6 +6,7 @@
     "configurations": [
         {
             "type": "msedge",
+            "trace": true,
             "request": "launch",
             "name": "Launch Edge against localhost",
             "url": "http://localhost:5174",

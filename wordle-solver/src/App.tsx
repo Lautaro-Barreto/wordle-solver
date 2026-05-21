@@ -23,7 +23,6 @@ function App() {
           </footer>
         </Row>
       </Container>
-
     </BrowserRouter>
   )
 }
