@@ -1,8 +1,12 @@
-import { Word } from "./Word";
+function Word({content}: {content: string}){
+    return(
+        <div className="word-list-item">{content}</div>
+    )
+}
 
 export function WordList({words}: {words: string[]}) {
     return (
-       <div>
+       <div className="word-list">
             {words.map((word) => (
                 <Word key={word} content={word} />
             ))}

@@ -1,33 +1,31 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
-import { Button, Form } from 'react-bootstrap';
-import { WordGrid } from '../src/WordGrid';
 import { MyNavbar } from './MyNavbar';
-import { WordList } from './WordList';
-import { useState } from 'react';
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import { Solver } from './Solver';
+import Row from 'react-bootstrap/esm/Row';
+import Container from 'react-bootstrap/esm/Container';
+import { PreviousAnswers } from './PreviousAnswers';
+import { WordleDictionary } from './WordleDictionary';
 
 function App() { 
 
-    const [formData, setFormData] = useState({});
-    
-    function handleSubmit(event) {
-    event.preventDefault();
-    alert("submitted :D");
-  }
-
   return (
-    <div>
+    <BrowserRouter>
       <MyNavbar />
-      <Form onSubmit={handleSubmit}>
-        <WordGrid/>
-        <div style={{display:"flex", justifyContent: "center", marginTop: "10px"}}>
-          <Button variant="primary" type="submit">Filter</Button>
-        </div>
-        </Form>
-        <WordList words={["ZEBRA", "QUICK", "LION"]} />
-      {/*section (hidden until state show = true): <WordList />*/}
-    </div>
+      <Routes>
+        <Route path="/" element={<Solver />} />
+        <Route path="/past-answers" element={<PreviousAnswers />} />
+        <Route path="/wordle-dictionary" element={<WordleDictionary />} />
+      </Routes>
+      <Container>
+        <Row>
+          <footer>
+            <p style={{textAlign: "center", marginTop: "20px"}}>© 2026 WordleHub. Visit the <a href="https://www.nytimes.com/games/wordle/index.html" target="_blank" rel="noopener noreferrer"> official Wordle site</a>.</p>
+          </footer>
+        </Row>
+      </Container>
+    </BrowserRouter>
   )
 }
 
