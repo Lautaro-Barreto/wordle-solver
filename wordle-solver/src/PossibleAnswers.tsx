@@ -2,7 +2,6 @@ import { WordList } from "./WordList";
 
 import dictionaryFile from '../wordle-dictionary.txt?raw';
 import answersFile from '../past-wordle-answers.txt?raw';
-import type { useLayoutEffect } from "react";
 
 function createFilters(formData) {
 
@@ -49,26 +48,25 @@ function createFilters(formData) {
 
 function filterWords(formData: FormData) {
 
-    let allWords : string[] = dictionaryFile.split("\r").map(str => str.trim());
+    let words : string[] = dictionaryFile.split("\r").map(str => str.trim());
     const filteredWords : string[] = [];
     const previousAnswers : string[] = answersFile.split(" ").map(str => str.trim());
 
     const { correctLetters, misplacedLetters, missingLetters, excludePrevious } = createFilters(formData);
 
-    if(JSON.stringify(formData) === '{}' || formData === null) return allWords;
+    if(JSON.stringify(formData) === '{}' || formData === null) return words;
 
     if (excludePrevious) {
         const set = new Set(previousAnswers);
-        const allWordsCopy = [...allWords];
-        allWords = allWordsCopy.filter(word => !set.has(word));
+        const allWordsCopy = [...words];
+        words = allWordsCopy.filter(word => !set.has(word));
     }    
 
-    //input name={`misplaced-letter-${num}-row-${rowIndex + 1}`}
-    for (const word of allWords) {
+    for (const word of words) {
         let isValid = true;
         
         if (excludePrevious && previousAnswers.includes(word)){
-            allWords.splice(allWords.indexOf(word), 1);
+            words.splice(words.indexOf(word), 1);
             filteredWords.push(word);
             continue;
         }
@@ -90,13 +88,16 @@ function filterWords(formData: FormData) {
         for (const row of misplacedLetters) {
             let i = 0;
             for (const letter of row) {
-                if (word[i] === letter || (letter !== "" && !word.includes(letter))) {
+                if(letter === ""){
+                    i++;
+                    continue;
+                }
+                if (word[i] === letter || !word.includes(letter)) {
                     isValid = false;
                     break;
                 }
                 i++;
             }
-            if (!isValid) break;
         }
 
         if (!isValid) {
@@ -105,7 +106,7 @@ function filterWords(formData: FormData) {
     }
 
     const setFil = new Set(filteredWords);
-    return allWords.filter(word => !setFil.has(word));
+    return words.filter(word => !setFil.has(word));
 }
 
 export function PossibleAnswers({ data }) {
