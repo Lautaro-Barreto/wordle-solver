@@ -7,7 +7,7 @@ export function PreviousAnswers(){
         <Container>
             <Row>
                 <h1 style={{textAlign: "center", marginTop: "20px"}}>Previous Answers</h1>
-                <p style={{textAlign: "center"}}>Everyone is here</p>
+                <p style={{textAlign: "center"}}>Words that have already appeared in previous games</p>
             </Row>
             <Row>
                 <WordList words={answersFile.split(" ").sort()}/ >

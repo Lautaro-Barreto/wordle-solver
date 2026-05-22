@@ -7,7 +7,7 @@ function createFilters(formData) {
 
     const correctLetters : string[] = ["", "", "", "", ""];
     const misplacedLetters : string[][] = [["", "", "", "", ""]];
-    const missingLetters : string[] = [];  
+    let missingLetters : string = "";  
     let excludePrevious : boolean = false;
 
     if(JSON.stringify(formData) === '{}' || formData === null) return { correctLetters, misplacedLetters, missingLetters, excludePrevious };
@@ -30,7 +30,7 @@ function createFilters(formData) {
             }
             else{
                 if (key.includes("missing-letter")) {
-                    missingLetters.push(formData[key]?.toString().toUpperCase() || "");
+                    missingLetters += formData[key]?.toString().toUpperCase() || "";
                 }
                  else{
                     if (key.includes("exclude-previous")) {
@@ -66,7 +66,6 @@ function filterWords(formData: FormData) {
         let isValid = true;
         
         if (excludePrevious && previousAnswers.includes(word)){
-            words.splice(words.indexOf(word), 1);
             filteredWords.push(word);
             continue;
         }
@@ -78,25 +77,29 @@ function filterWords(formData: FormData) {
             }
         }
 
-        for (let i = 0; i < 5; i++) {
-            if (correctLetters[i] && correctLetters[i].toUpperCase() !== word[i]) {
-                isValid = false;
-                break;
-            }
-        }
-
-        for (const row of misplacedLetters) {
-            let i = 0;
-            for (const letter of row) {
-                if(letter === ""){
-                    i++;
-                    continue;
-                }
-                if (word[i] === letter || !word.includes(letter)) {
+        if(isValid) {
+            for (let i = 0; i < 5; i++) {
+                if (correctLetters[i] && correctLetters[i].toUpperCase() !== word[i]) {
                     isValid = false;
                     break;
                 }
-                i++;
+            }
+
+            if(isValid) {
+                for (const row of misplacedLetters) {
+                    let i = 0;
+                    for (const letter of row) {
+                        if(letter === ""){
+                            i++;
+                            continue;
+                        }
+                        if (word[i] === letter || !word.includes(letter)) {
+                            isValid = false;
+                            break;
+                        }
+                        i++;
+                    }
+                }
             }
         }
 

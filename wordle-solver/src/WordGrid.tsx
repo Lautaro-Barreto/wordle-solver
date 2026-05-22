@@ -1,4 +1,4 @@
-import { useState, type MouseEventHandler } from "react";
+import { useState } from "react";
 import { Button, FormCheck } from "react-bootstrap";
 
 function AddRemoveRowsButton(props: {action, displayText: string}) {
