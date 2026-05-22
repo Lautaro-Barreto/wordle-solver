@@ -11,7 +11,7 @@ import { WordleDictionary } from './WordleDictionary';
 function App() { 
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <MyNavbar />
       <Routes>
         <Route path="/" element={<Solver />} />
